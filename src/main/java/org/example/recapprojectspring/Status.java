@@ -4,5 +4,5 @@ package org.example.recapprojectspring;
 public enum Status {
     OPEN,
     IN_PROGRESS,
-    COMPLETED
+    DONE
 }
