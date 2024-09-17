@@ -1,9 +1,6 @@
 package org.example.recapprojectspring;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,6 +15,7 @@ public class TodoController {
         this.todoService = todoService;
     }
 
+
 @GetMapping()// Defines a GET endpoint which handles GET requests to the base URL
 
 /*getToDos() method which calls the getAllTodos() method of the TodoService
@@ -28,6 +26,11 @@ public class TodoController {
 
 }
 
+    @GetMapping("/board/todo")
+    public List<Todo> getAllBoard() {
+        return todoService.getAllTodos();
+    }
+
 @GetMapping("/{id}")// Defines a GET endpoint which handles GET requests to the /{id} path
 
 /*getTodoById method which calls the findById method in TodoService class
@@ -36,6 +39,25 @@ public class TodoController {
         return todoService.findById(id);
 }
 
+@PostMapping()// Defines a POST endpoint which handles POST requests to the base URL
+
+/*createTodo() method which creates a new todo object
+*@RequestBody tells Spring to expect the request body to contain data it understands e.g. JSON
+*Spring then maps the data from the request body into an instance of the Todo class*/
+    public Todo createTodo(@RequestBody Todo todo){
+        return todoService.save(todo);
+}
+
+    @PutMapping("/{id}")
+    public Todo todoUpdate( @PathVariable String id, @RequestBody Todo todo){
+        return todoService.updateTodo(id,todo);
+    }
+
+    @DeleteMapping("/{id}")
+
+    public String toDoDelete(@PathVariable String id){
+        return todoService.deleteById(id);
+    }
 
 
 

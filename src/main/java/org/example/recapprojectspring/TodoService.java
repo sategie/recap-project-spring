@@ -26,4 +26,23 @@ public class TodoService {
     }
 
 
+//    Save method which saves a new Todo object
+    public Todo save(Todo todo){
+        return todoRepository.save(new Todo(todo.id(), todo.description(), todo.status()));
+    }
+
+    /*The updateTodo() method takes in a todo object as its parameter
+    * If the todo object does not exist, it returns an exception with a message to the user
+    * If the todo element exists, it updates the todo object by saving it to the repository*/
+
+    public Todo updateTodo(String id, Todo todo){
+        Todo updatedTodo = todoRepository.findById(id).orElseThrow(()-> new NoSuchElementException("No Todo with the id " + id));
+        return todoRepository.save(new Todo(updatedTodo.id(), todo.description(), todo.status()));
+    }
+
+    public String deleteById(String id){
+        todoRepository.deleteById(id);
+        return "Todo deleted! " + id;
+    }
+
 }
